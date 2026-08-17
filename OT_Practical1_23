@@ -1,0 +1,81 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": []
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "MkH-nI0zD1Gh",
+        "outputId": "d4dc26f9-97ea-4598-ba26-98d6a7fff29f"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Function:\n",
+            "x**3 - 6*x**2 + 9*x + 1\n",
+            "\n",
+            "First Derivative:\n",
+            "3*x**2 - 12*x + 9\n",
+            "\n",
+            "Critical Points Analysis:\n",
+            "x = 1: Local Maximum\n",
+            "x = 3: Local Minimum\n"
+          ]
+        }
+      ],
+      "source": [
+        "import sympy as sp\n",
+        "\n",
+        "# Define variable\n",
+        "x = sp.Symbol('x')\n",
+        "\n",
+        "# Define function\n",
+        "f = x**3 - 6*x**2 + 9*x + 1\n",
+        "\n",
+        "print(\"Function:\")\n",
+        "print(f)\n",
+        "\n",
+        "# First derivative\n",
+        "f_prime = sp.diff(f, x)\n",
+        "print(\"\\nFirst Derivative:\")\n",
+        "print(f_prime)\n",
+        "\n",
+        "# Critical points\n",
+        "critical_points = sp.solve(f_prime, x)\n",
+        "\n",
+        "# Second derivative\n",
+        "f_double = sp.diff(f_prime, x)\n",
+        "\n",
+        "print(\"\\nCritical Points Analysis:\")\n",
+        "\n",
+        "for point in critical_points:\n",
+        "    second_value = f_double.subs(x, point)\n",
+        "\n",
+        "    if second_value > 0:\n",
+        "        print(f\"x = {point}: Local Minimum\")\n",
+        "    elif second_value < 0:\n",
+        "        print(f\"x = {point}: Local Maximum\")\n",
+        "    else:\n",
+        "        print(f\"x = {point}: Test Inconclusive\")"
+      ]
+    }
+  ]
+}

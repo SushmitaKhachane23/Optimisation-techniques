@@ -1,0 +1,175 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": []
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "FJoWawc0gsEL"
+      },
+      "outputs": [],
+      "source": [
+        "import sympy as sp\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "x = sp.Symbol('x')\n",
+        "\n",
+        "#constraint\n",
+        "# x+y = 10\n",
+        "y = 10 - x"
+      ],
+      "metadata": {
+        "id": "V9YlTUoFiEfx"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "f = x**2 + y**2\n",
+        "\n",
+        "print(\"Objective Function after substitute\")\n",
+        "print(sp.expand(f))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "LbpJBNsuiTJR",
+        "outputId": "1940e4e9-9573-4b06-96e5-a310cfb1da23"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Objective Function after substitute\n",
+            "2*x**2 - 20*x + 100\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# derivative\n",
+        "f_prime = sp.diff(f,x)\n",
+        "print(\"\\nFirst Derivative:\")\n",
+        "print(f_prime)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "_578XUoLihUD",
+        "outputId": "7d607556-4634-4533-d282-0b812bedf5a9"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "\n",
+            "First Derivative:\n",
+            "4*x - 20\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#critical point\n",
+        "critical_point = sp.solve(f_prime,x)\n"
+      ],
+      "metadata": {
+        "id": "V23vd5ATjQHI"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#second derivative\n",
+        "f_double = sp.diff(f_prime, x)"
+      ],
+      "metadata": {
+        "id": "3D0wl7ObjkNp"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "for point in critical_point:\n",
+        "    y_value = y.subs(x, point)\n",
+        "    f_value = f.subs(x, point)\n",
+        "\n",
+        "    # Second derivative test\n",
+        "    second_derivative = sp.diff(f, x, 2)\n",
+        "    second_value = second_derivative.subs(x, point)\n",
+        "\n",
+        "    print(\"x =\", point)\n",
+        "    print(\"y =\", y_value)\n",
+        "    print(\"Objective Function =\", f_value)\n",
+        "\n",
+        "    if second_value > 0:\n",
+        "        print(\"Result: Minimum\")\n",
+        "    elif second_value < 0:\n",
+        "        print(\"Result: Maximum\")\n",
+        "    else:\n",
+        "        print(\"Result: Inconclusive\")"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "339LGfzVj6AU",
+        "outputId": "3a15be42-e2ad-4fb5-872b-ddb3136022be"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "x = 5\n",
+            "y = 5\n",
+            "Objective Function = 50\n",
+            "Result: Minimum\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "xktbhNWTkbL_"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}

@@ -1,0 +1,309 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": []
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "vQ_EidIZZ2by"
+      },
+      "outputs": [],
+      "source": [
+        "import sympy as sp\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "x,y = sp.symbols('x y')\n"
+      ],
+      "metadata": {
+        "id": "kuRnYHtFaJnj"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "f = x**2 + y**2 - 4*x - 6*y + 13"
+      ],
+      "metadata": {
+        "id": "YmDKKWACaOqB"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(\"Function:\")\n",
+        "print(f)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "ptsYPCMXaa1C",
+        "outputId": "c5374291-7fd3-449f-e2b9-3239e0944f59"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Function:\n",
+            "x**2 - 4*x + y**2 - 6*y + 13\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#First partial derivative\n",
+        "fx = sp.diff(f,x)\n",
+        "fy = sp.diff(f,y)\n",
+        "\n",
+        "print(\"\\nPartial Derivative wrt x:\")\n",
+        "print(fx)\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "U11kElt4ahJz",
+        "outputId": "c9563fdb-69c7-4761-bc51-146ed476b3ae"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "\n",
+            "Partial Derivative wrt x:\n",
+            "2*x - 4\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(\"\\nPartial Derivative wrt y:\")\n",
+        "print(fy)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "rNNFkDDZbJC5",
+        "outputId": "d1952335-d194-41bd-bfb5-c4aeb8471d36"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "\n",
+            "Partial Derivative wrt y:\n",
+            "2*y - 6\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Stationary point\n",
+        "critical_point = sp.solve((fx,fx),(x,y))\n",
+        "print(\"\\nStationary Point\")\n",
+        "print(critical_point)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "HB7PNGpubKaY",
+        "outputId": "4892b7a6-a13b-49be-d8c8-3015fafeee3e"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "\n",
+            "Stationary Point\n",
+            "{x: 2}\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "fxx = sp.diff(fx, x)\n",
+        "fyy = sp.diff(fy, y)\n",
+        "fxy = sp.diff(fx, y)\n",
+        "\n",
+        "print(fxx)\n",
+        "print(fyy)\n",
+        "print(fxy)\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "ptyHYGdxbpqL",
+        "outputId": "14181b57-4954-4e6f-a993-f0e211619201"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "2\n",
+            "2\n",
+            "0\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# hessian determinant\n",
+        "D = fxx*fyy-fxy**2\n",
+        "print(D)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "EQfmK_n1b0wM",
+        "outputId": "350e9170-3513-47df-caff-4f8d52cb32f4"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "4\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(\"Second PD:\")\n",
+        "print(\"fxx=\",fxx)\n",
+        "print(\"fyy=\",fyy)\n",
+        "print(\"fxy=\",fxy)\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "V9SI1kzicFX9",
+        "outputId": "a2254540-0195-47d3-8635-1babbea58df1"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Second PD:\n",
+            "fxx= 2\n",
+            "fyy= 2\n",
+            "fxy= 0\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(\"\\nHessian Determinant D = \",D)\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "i28vQLVKcUf_",
+        "outputId": "cbd0c419-deba-4d18-dc46-a47b6467154f"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "\n",
+            "Hessian Determinant D =  4\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "if D>0 and fxx>0:\n",
+        "  print(\"Local minima\")\n",
+        "elif D>0 and fxx<0:\n",
+        "  print(\"Local Maxima\")\n",
+        "elif D<0:\n",
+        "  print(\"Stationary saddle point\")\n",
+        "else:\n",
+        "  print(\"Test inconclusive\")"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "jrmnwMz5ccF_",
+        "outputId": "99e057d5-b126-424b-dece-c077b7be761d"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Local minima\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "dZoC1PAWhtxP"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
